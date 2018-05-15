@@ -1,4 +1,5 @@
 # 画像をnpz形式に変換する
+# Create NPZ file
 import numpy as np
 from PIL import Image
 import os, glob, random, re
