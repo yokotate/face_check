@@ -21,9 +21,10 @@ def glob_images(path, label, max_photo, rotate):
         i += 1
         img = Image.open(f)
         img = img.convert("L") # データをモノクロとして扱う。RGBも指定できる
-        img = img.resize(photo_size, photo_size)
+        img = img.resize((photo_size, photo_size))
         x.append(image_to_data(img))
         y.append(label)
+        if not rotate: continue
         # 回転させた画像データを使用することでテストデータの水増し
         for angle in range(-20 , 21 , 5):
             img_angle = img.rotate(angle)
@@ -34,12 +35,14 @@ def glob_images(path, label, max_photo, rotate):
 def image_to_data(img): # 画像データを正規化
   data = np.asarray(img)
   data = data / 256
-  data = data.reshape(photo_size, photo_size, 2) # 白黒なので2を指定。RGBなら3
+  data = data.reshape(photo_size, photo_size) # RGBなら3を指定する
   return data
 
 def make_dataset(max_photo, outfile, rotate):
     global x
     global y
+    x = []
+    y = []
 
     # folder_path = "./att_faces/"
     folders = glob.glob("./att_faces/*")
@@ -49,5 +52,9 @@ def make_dataset(max_photo, outfile, rotate):
     np.savez(outfile, x=x, y=y)
     print("saved:" + outfile)
 
+print("Create Start!!")
 make_dataset(350, "photo.npz", rotate=True)
+print("Success crate LearningData!")
 make_dataset(50, "photo-test.npz", rotate=False)
+print("Success create TestData!")
+
