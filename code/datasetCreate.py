@@ -35,7 +35,7 @@ def glob_images(path, label, max_photo, rotate):
 def image_to_data(img): # 画像データを正規化
   data = np.asarray(img)
   data = data / 256
-  data = data.reshape(photo_size, photo_size) # RGBなら3を指定する
+  data = data.reshape(photo_size, photo_size, 1) # RGBなら3を指定する
   return data
 
 def make_dataset(max_photo, outfile, rotate):
@@ -47,7 +47,7 @@ def make_dataset(max_photo, outfile, rotate):
     # folder_path = "./att_faces/"
     folders = glob.glob("./att_faces/*")
     for folder in folders:
-        glob_images(folder,os.path.basename(folder),max_photo,rotate)
+        glob_images(folder,os.path.basename(folder)[1:],max_photo,rotate)
     x = np.array(x, dtype=np.float32)
     np.savez(outfile, x=x, y=y)
     print("saved:" + outfile)
