@@ -25,11 +25,6 @@ def glob_images(path, label, max_photo, rotate):
         x.append(image_to_data(img))
         y.append(label)
         if not rotate: continue
-        # 回転させた画像データを使用することでテストデータの水増し
-        for angle in range(-20 , 21 , 5):
-            img_angle = img.rotate(angle)
-            x.append(image_to_data(img_angle))
-            y.append(label)
 
 
 def image_to_data(img): # 画像データを正規化
@@ -47,7 +42,7 @@ def make_dataset(max_photo, outfile, rotate):
     # folder_path = "./att_faces/"
     folders = glob.glob("./att_faces/*")
     for folder in folders:
-        glob_images(folder,os.path.basename(folder)[1:],max_photo,rotate)
+        glob_images(folder,int(os.path.basename(folder)[1:]) - 1,max_photo,rotate)
     x = np.array(x, dtype=np.float32)
     np.savez(outfile, x=x, y=y)
     print("saved:" + outfile)
