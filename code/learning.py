@@ -1,10 +1,9 @@
 import numpy as np
 import glob
-from tensorflow.python.keras.utils import to_categorical
-from tensorflow.python.keras.models import Sequential
-from tensorflow.python.keras.layers import Conv2D,MaxPooling2D,Dropout,Flatten,Dense
-from tensorflow.python.keras.callbacks import TensorBoard
-
+from keras.utils import to_categorical
+from keras.models import Sequential
+from keras.layers import Conv2D,MaxPooling2D,Dropout,Flatten,Dense
+from keras.callbacks import TensorBoard
 
 data = np.load("./photo.npz")
 x_train = data["x"]
@@ -88,3 +87,7 @@ history_model = model.fit(
     validation_split=0.2,
     callbacks=[tsb]
 )
+model.save_weights("nn.hdf5")
+score = model.evaluate(x_test, y_test)
+print('loss = ', score[0])
+print('accuracy = ', score[1])
