@@ -99,8 +99,8 @@ def make_dataset(max_photo, outfile, rotate):
     print("saved:" + outfile)
 
 print("Create Start!!")
-make_dataset(12000, "photo.npz", rotate=True)
+make_dataset(8, "photo.npz", rotate=True)
 print("Success crate LearningData!")
-make_dataset(1000, "photo-test.npz", rotate=False)
+make_dataset(2, "photo-test.npz", rotate=False)
 print("Success create TestData!")
 
