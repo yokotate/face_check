@@ -81,7 +81,7 @@ def contrast(img, label):
 def image_to_data(img): # 画像データを正規化
   data = np.asarray(img)
   data = img / 256
-  data = data.reshape(92, 112, 1) # RGBなら3を指定する
+  data = data.reshape(112, 92, 1) # RGBなら3を指定する
   return data
 
 def make_dataset(max_photo, outfile, rotate):

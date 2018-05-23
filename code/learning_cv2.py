@@ -25,8 +25,8 @@ model = Sequential()
 model.add(
     Conv2D(
         filters=92,
-        input_shape=(92,112,1),
-        kernel_size=(5,5),
+        input_shape=(112,92,1),
+        kernel_size=(3, 3),
         strides=(2,2),
         padding='same',
         activation='relu'
@@ -35,7 +35,7 @@ model.add(
 model.add(
     Conv2D(
         filters=92,
-        kernel_size=(5,5),
+        kernel_size=(3, 3),
         strides=(2,2),
         padding='same',
         activation='relu'
@@ -48,7 +48,7 @@ model.add(Dropout(0.25))
 model.add(
     Conv2D(
         filters=184,
-        kernel_size=(5,5),
+        kernel_size=(3, 3),
         strides=(2,2),
         padding='same',
         activation='relu'
@@ -57,7 +57,7 @@ model.add(
 model.add(
     Conv2D(
         filters=184,
-        kernel_size=(5,5),
+        kernel_size=(3, 3),
         strides=(2,2),
         padding='same',
         activation='relu'
@@ -84,8 +84,8 @@ history_model = model.fit(
     x_train,
     y_train,
     batch_size=100,
-    epochs=20,
-    validation_split=0.5,
+    epochs=50,
+    validation_split=0.25,
     callbacks=[tsb]
 )
 model.save_weights("nn.hdf5")
