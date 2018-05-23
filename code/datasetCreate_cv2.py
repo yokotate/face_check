@@ -6,9 +6,9 @@ import os, glob, random, re, cv2
 
 # 変数設定
 photo_size = 92 # 画像サイズ
+used_file = {}
 
 def glob_images(path, label, max_photo, rotate):
-    used_file = {}
     files = glob.glob(path + "/*.pgm")
     # 取り出した画像の順番をランダムに変更する
     random.shuffle(files)
