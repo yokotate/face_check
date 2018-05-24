@@ -27,7 +27,25 @@ def glob_images(path, label, max_photo, rotate):
         # 以下テストデータ水増し用画像編集部分
         average(img, label)
         contrast(img, label)
+        noise(img, label)
 
+# 画像内にノイズを入れる
+def noise(img, label):
+    s_vs_p = 0.5
+    amount = 0.001
+    sp_img = img.copy()
+    for i in range(20):
+        # 塩モード
+        num_salt = np.ceil(amount * i * img.size * s_vs_p)
+        coords = [np.random.randint(0, i-1 , int(num_salt)) for i in img.shape]
+        sp_img[coords[:-1]] = (255)
+
+        # 胡椒モード
+        num_pepper = np.ceil(amount * i * img.size * (1. - s_vs_p))
+        coords = [np.random.randint(0, i-1 , int(num_pepper)) for i in img.shape]
+        sp_img[coords[:-1]] = (0)
+
+        average(sp_img, label)
 
 # 平滑化
 def average(img, label):
