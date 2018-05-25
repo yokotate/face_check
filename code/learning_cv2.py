@@ -70,6 +70,10 @@ model.add(Dropout(0.25))
 model.add(Flatten())
 model.output_shape
 
+# Denseは全結合層
+# unitsが出力次元数
+# input_shapeが入力されるテンソルの形状（今回は省略）
+# activationが活性化関数
 model.add(Dense(units=512, activation='relu'))
 model.add(Dropout(0.25))
 model.add(Dense(units=classes, activation='softmax'))
@@ -78,7 +82,7 @@ model.compile(
     optimizer='adam',
     loss='categorical_crossentropy',
     metrics=['accuracy']
-)
+) 
 tsb=TensorBoard(log_dir='./logs')
 history_model = model.fit(
     x_train,
